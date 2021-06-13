@@ -1,7 +1,6 @@
 package src;
 
 import src.Sistema.*;
-import src.Prestamo.*;
 
 public class Inicio {
 
@@ -9,5 +8,5 @@ public class Inicio {
        	Sistema sistema = new Sistema();
         sistema.mostrarMenu();
     }
-    
+
 }

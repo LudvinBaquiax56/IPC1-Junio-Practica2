@@ -2,10 +2,18 @@ package src.Sistema;
 
 import java.util.*;
 
+import src.Cliente.*;
+import src.Pelicula.*;
+import src.Prestamo.*;
+
 public class Sistema {
 
+    private Cliente[] clientes;
+    private Pelicula[] peliculas;
+    private Prestamo[] prestamos;
+
     public Sistema(){
-        
+        llenarPeliculas();      
     }
 
     public void mostrarMenu(){
@@ -14,6 +22,7 @@ public class Sistema {
         boolean salir = true;
         int opcion = 0;
         do {
+            System.out.println("-----------------------------------------------");
             System.out.println("Bienvenido a “Memorabilia”");
             System.out.println("Seleccione la accion que desea hacer: ");
             System.out.println("1. Prestamo de peliculas");
@@ -69,6 +78,7 @@ public class Sistema {
         Scanner scanner = new Scanner(System.in);
         int opcion = 0;
         do {
+            System.out.println("-----------------------------------------------");
             System.out.println("Reportes");
             System.out.println("Ingrese el reporte que desea generar");
             System.out.println("1. Peliculas por categoria");
@@ -115,7 +125,14 @@ public class Sistema {
     }
 
     public void mostrarPelicula(){
-        System.out.println("Mostar peliculas");
+        System.out.println("-----------------------------------------------");
+        System.out.println("Las peliculas de Memorabilia son:");
+        System.out.println("ID--Nombre--Anio--Categoria--Disponibilidad");
+        System.out.println("-----------------------------------------------");
+        System.out.println(" ");
+        for (int i = 0;i<peliculas.length ;i++ ) {
+            System.out.println( (i+1) + ". " + peliculas[i].mostrarDatos());
+        }
     }
 
     public void ingresarPelicula(){
@@ -152,6 +169,74 @@ public class Sistema {
 
     public void crarReporte5(){
         System.out.println("Pelicula menos prestada");
+    }
+
+    public void llenarPeliculas(){
+        peliculas = new Pelicula[30];
+        peliculas[0] = new Pelicula(7018,"La red social", 2010, "Drama", true);
+        peliculas[1] = new Pelicula(5439,"Toy Story 3", 2010, "Infantil", true);
+        peliculas[2] = new Pelicula(3998,"Ejército de los muertos",2021, "Accion", true);
+        peliculas[3] = new Pelicula(1909,"Shrek",2001,"Infantil", true);
+        peliculas[4] = new Pelicula(1840,"Brawl in the cell block 99",2017, "Accion", true);
+        peliculas[5] = new Pelicula(7279,"El club de la lucha", 1999, "Drama", true);
+        peliculas[6] = new Pelicula(5361,"Zoolander", 2001, "Comedia", true);
+        peliculas[7] = new Pelicula(6671,"Objetivo: La Casa Blanca",2013, "Accion", true);
+        peliculas[8] = new Pelicula(4493,"Dragon Ball Super: Broly",2019,"Infantil", true);
+        peliculas[9] = new Pelicula(1984,"Como Dios", 2003, "Comedia", true);
+        peliculas[10] = new Pelicula(8950,"El padrino", 1972, "Drama", true);
+        peliculas[11] = new Pelicula(1234,"Birdman", 2014, "Comedia", true);
+        peliculas[12] = new Pelicula(5356,"Titanic",1997, "Romance", true);
+        peliculas[13] = new Pelicula(2369,"Pacific Rim",2013, "Accion", true);
+        peliculas[14] = new Pelicula(1048,"Sonic. La película",2020,"Infantil", true);
+        peliculas[15] = new Pelicula(6670,"Love Story", 1970, "Romance", true);
+        peliculas[16] = new Pelicula(2648,"El pianista", 2002, "Drama", true);
+        peliculas[17] = new Pelicula(6218,"La vida es bella", 1997, "Drama", true);
+        peliculas[18] = new Pelicula(5739,"Coco",2017,"Infantil", true);
+        peliculas[19] = new Pelicula(9731,"Terminator 2: El juicio final",1991, "Accion", true);
+        peliculas[20] = new Pelicula(1398,"El viaje de Chihiro",2002,"Infantil", true);
+        peliculas[21] = new Pelicula(9874,"500 dias con ella",2009, "Romance", true);
+        peliculas[22] = new Pelicula(3764,"Crash", 2005, "Drama", true);
+        peliculas[23] = new Pelicula(1364,"Olvídate de mí", 2004 , "Romance", true);
+        peliculas[24] = new Pelicula(2985,"Lucy", 2014, "Accion", true);
+        peliculas[25] = new Pelicula(8669,"Playtime",1967, "Comedia", true);
+        peliculas[26] = new Pelicula(8651,"American History X", 1998,"Drama", true);
+        peliculas[27] = new Pelicula(5363,"La princesa prometida", 1987, "Comedia", true);
+        peliculas[28] = new Pelicula(7163,"Solo en casa", 1990, "Comedia", true);
+        peliculas[29] = new Pelicula(5156,"La familia Addams",2019,"Infantil", true);
+    }
+
+    public void llenarClientes(){
+        clientes = new Cliente[30];
+        clientes[0] = new Cliente("Mateo",44,3080299,false);
+        clientes[1] = new Cliente("Adriana",93,4582106,false);
+        clientes[2] = new Cliente("Carolina",89,7313802,false);
+        clientes[3] = new Cliente("Alejandro",92,7226760,false);
+        clientes[4] = new Cliente("Alexander",39,7243001,false);
+        clientes[5] = new Cliente("Felipe",77,1926295,false);
+        clientes[6] = new Cliente("Marcela",11,8766157,false);
+        clientes[7] = new Cliente("Carol",34,7605706,false);
+        clientes[8] = new Cliente("Liliana",22,7605706,false);
+        clientes[9] = new Cliente("Catalina",59,1667315,false);
+        clientes[10] = new Cliente("Angel",68,1135125,false);
+        clientes[11] = new Cliente("Maria",75,8280562,false);
+        clientes[12] = new Cliente("Claudia",17,8123562,false);
+        clientes[13] = new Cliente("Daniel",61,5647895,false);
+        clientes[14] = new Cliente("Cristina",71,1590685,false);
+        clientes[15] = new Cliente("Andres",57,5162419,false);
+        clientes[16] = new Cliente("Daniela",26,2525466,false);
+        clientes[17] = new Cliente("Diana",90,5218788,false);
+        clientes[18] = new Cliente("Carlos",81,6213725,false);
+        clientes[19] = new Cliente("Gabriel",94,6743273,false);
+        clientes[20] = new Cliente("Gloria",73,3626053,false);
+        clientes[21] = new Cliente("Hugo",43,8013543,false);
+        clientes[22] = new Cliente("Ingrid",45,1089049,false);
+        clientes[23] = new Cliente("Jenny",38,5162341,false);
+        clientes[24] = new Cliente("Ivan",70,9406264,false);
+        clientes[25] = new Cliente("Mario",14,3193882,false);
+        clientes[26] = new Cliente("Esteban",82,8642650,false);
+        clientes[27] = new Cliente("Rocio",35,9305623,false);
+        clientes[28] = new Cliente("July",42,2189894,false);
+        clientes[29] = new Cliente("Oliver",15,67458756,false);
     }
 
 }
