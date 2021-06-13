@@ -15,11 +15,11 @@ public class Sistema {
 
 
     public Sistema(){
-        //llenarPeliculas();
-        //llenarClientes();
         clientes = new Cliente[0];
         peliculas = new Pelicula[0];
         prestamos = new Prestamo[0];      
+        //llenarPeliculas();
+        llenarClientes();
     }
 
     public void mostrarMenu(){
@@ -155,11 +155,11 @@ public class Sistema {
         do {
             System.out.println("Ingrese el Id de la pelicula");
             idPelicula = scanner.nextInt();
-            if (validarIdRepetido(idPelicula)) {
+            if (validarIdRepetidoPeliculas(idPelicula)) {
                 System.out.println("Ya existe una pelicula con ese Id (" + idPelicula+")");
                 System.out.println("Cambie de id");
             }
-        } while (validarIdRepetido(idPelicula));
+        } while (validarIdRepetidoPeliculas(idPelicula));
         scanner.nextLine();
         System.out.println("Ingrese el nombre de la pelicula");
         nombrePelicula = scanner.nextLine();
@@ -170,7 +170,7 @@ public class Sistema {
         System.out.println("Pelicula Agregada con exito");
     }
 
-    public boolean validarIdRepetido(int idPelicula){
+    public boolean validarIdRepetidoPeliculas(int idPelicula){
         for (int i = 0;i < peliculas.length ; i++ ) {
             if (peliculas[i].getId()==idPelicula) {
                 return true;
@@ -251,7 +251,43 @@ public class Sistema {
     }
 
     public void ingresarCliente(){
-        System.out.println("Ingresar Cliente");
+        String nombreCliente;
+        int idCliente;
+        int telefonoCliente;
+        scanner.nextLine();
+        System.out.println("Ingreso de un nuevo Cliente");
+        System.out.println("--------------------------------");
+        System.out.println("Ingrese el nombre del cliente:");
+        nombreCliente = scanner.nextLine();
+        do {
+            System.out.println("Ingrese el Id del cliente");
+            idCliente = scanner.nextInt();
+            if (validarIdRepetidoCliente(idCliente)) {
+                System.out.println("Ya existe un cliente con ese Id (" + idCliente+")");
+                System.out.println("Cambie de id");
+            }
+        } while (validarIdRepetidoCliente(idCliente));
+        System.out.println("Ingrese el telefono del cliente:");
+        telefonoCliente = scanner.nextInt();
+        agregarCliente ( new Cliente(nombreCliente,idCliente,telefonoCliente,true));
+    }
+
+    public boolean validarIdRepetidoCliente(int idCliente){
+        for (int i = 0;i < clientes.length ; i++ ) {
+            if (clientes[i].getId()==idCliente) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void agregarCliente (Cliente cliente){
+        Cliente aux [] = new Cliente[clientes.length + 1];
+        for (int i = 0; i < clientes.length ; i++ ) {
+            aux[i] = clientes[i];
+        }
+        aux[clientes.length] = cliente;
+        clientes = aux;
     }
 
     public void mostrarClientes(){
