@@ -13,7 +13,8 @@ public class Sistema {
     private Prestamo[] prestamos;
 
     public Sistema(){
-        llenarPeliculas();      
+        llenarPeliculas();
+        llenarClientes();      
     }
 
     public void mostrarMenu(){
@@ -141,6 +142,17 @@ public class Sistema {
 
     public void ordenarPeliculas(){
         System.out.println("Ordenar peliculas");
+        System.out.println("......................................");
+        for (int i = 1; i < peliculas.length; i++ ) {
+            for (int j = 0; j< peliculas.length-i;j++ ) {
+                if (peliculas[j].getNombre().compareTo(peliculas[j+1].getNombre()) > 0) {
+                    Pelicula aux = peliculas[j];
+                    peliculas[j] = peliculas[j + 1];
+                    peliculas[j+1] = aux;
+                }
+            }
+        }
+        System.out.println("Las peliculas han sido ordenadas de manera Ascendente");
     }
 
     public void ingresarCliente(){
@@ -149,6 +161,14 @@ public class Sistema {
 
     public void mostrarClientes(){
         System.out.println("Listado de Clientes");
+        System.out.println("-----------------------------------------------");
+        System.out.println("Las Clientes de Memorabilia son:");
+        System.out.println("Nombre--ID--Telefono--Disponivilidad Para prestar");
+        System.out.println("-----------------------------------------------");
+        System.out.println(" ");
+        for (int i = 0; i < clientes.length ; i++ ) {
+            System.out.println( ( i + 1 ) + ". " + clientes[i].mostrarDatos());
+        }
     }
 
     public void crarReporte1(){
@@ -207,36 +227,36 @@ public class Sistema {
 
     public void llenarClientes(){
         clientes = new Cliente[30];
-        clientes[0] = new Cliente("Mateo",44,3080299,false);
-        clientes[1] = new Cliente("Adriana",93,4582106,false);
-        clientes[2] = new Cliente("Carolina",89,7313802,false);
-        clientes[3] = new Cliente("Alejandro",92,7226760,false);
-        clientes[4] = new Cliente("Alexander",39,7243001,false);
-        clientes[5] = new Cliente("Felipe",77,1926295,false);
-        clientes[6] = new Cliente("Marcela",11,8766157,false);
-        clientes[7] = new Cliente("Carol",34,7605706,false);
-        clientes[8] = new Cliente("Liliana",22,7605706,false);
-        clientes[9] = new Cliente("Catalina",59,1667315,false);
-        clientes[10] = new Cliente("Angel",68,1135125,false);
-        clientes[11] = new Cliente("Maria",75,8280562,false);
-        clientes[12] = new Cliente("Claudia",17,8123562,false);
-        clientes[13] = new Cliente("Daniel",61,5647895,false);
-        clientes[14] = new Cliente("Cristina",71,1590685,false);
-        clientes[15] = new Cliente("Andres",57,5162419,false);
-        clientes[16] = new Cliente("Daniela",26,2525466,false);
-        clientes[17] = new Cliente("Diana",90,5218788,false);
-        clientes[18] = new Cliente("Carlos",81,6213725,false);
-        clientes[19] = new Cliente("Gabriel",94,6743273,false);
-        clientes[20] = new Cliente("Gloria",73,3626053,false);
-        clientes[21] = new Cliente("Hugo",43,8013543,false);
-        clientes[22] = new Cliente("Ingrid",45,1089049,false);
-        clientes[23] = new Cliente("Jenny",38,5162341,false);
-        clientes[24] = new Cliente("Ivan",70,9406264,false);
-        clientes[25] = new Cliente("Mario",14,3193882,false);
-        clientes[26] = new Cliente("Esteban",82,8642650,false);
-        clientes[27] = new Cliente("Rocio",35,9305623,false);
-        clientes[28] = new Cliente("July",42,2189894,false);
-        clientes[29] = new Cliente("Oliver",15,67458756,false);
+        clientes[0] = new Cliente("Mateo",44,3080299,true);
+        clientes[1] = new Cliente("Adriana",93,4582106,true);
+        clientes[2] = new Cliente("Carolina",89,7313802,true);
+        clientes[3] = new Cliente("Alejandro",92,7226760,true);
+        clientes[4] = new Cliente("Alexander",39,7243001,true);
+        clientes[5] = new Cliente("Felipe",77,1926295,true);
+        clientes[6] = new Cliente("Marcela",11,8766157,true);
+        clientes[7] = new Cliente("Carol",34,7605706,true);
+        clientes[8] = new Cliente("Liliana",22,7605706,true);
+        clientes[9] = new Cliente("Catalina",59,1667315,true);
+        clientes[10] = new Cliente("Angel",68,1135125,true);
+        clientes[11] = new Cliente("Maria",75,8280562,true);
+        clientes[12] = new Cliente("Claudia",17,8123562,true);
+        clientes[13] = new Cliente("Daniel",61,5647895,true);
+        clientes[14] = new Cliente("Cristina",71,1590685,true);
+        clientes[15] = new Cliente("Andres",57,5162419,true);
+        clientes[16] = new Cliente("Daniela",26,2525466,true);
+        clientes[17] = new Cliente("Diana",90,5218788,true);
+        clientes[18] = new Cliente("Carlos",81,6213725,true);
+        clientes[19] = new Cliente("Gabriel",94,6743273,true);
+        clientes[20] = new Cliente("Gloria",73,3626053,true);
+        clientes[21] = new Cliente("Hugo",43,8013543,true);
+        clientes[22] = new Cliente("Ingrid",45,1089049,true);
+        clientes[23] = new Cliente("Jenny",38,5162341,true);
+        clientes[24] = new Cliente("Ivan",70,9406264,true);
+        clientes[25] = new Cliente("Mario",14,3193882,true);
+        clientes[26] = new Cliente("Esteban",82,8642650,true);
+        clientes[27] = new Cliente("Rocio",35,9305623,true);
+        clientes[28] = new Cliente("July",42,2189894,true);
+        clientes[29] = new Cliente("Oliver",15,67458756,true);
     }
 
 }
