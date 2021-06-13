@@ -1,6 +1,7 @@
 package src;
 
 import src.Sistema.*;
+import src.Prestamo.*;
 
 public class Inicio {
 
