@@ -18,7 +18,7 @@ public class Sistema {
         clientes = new Cliente[0];
         peliculas = new Pelicula[0];
         prestamos = new Prestamo[0];      
-        //llenarPeliculas();
+        llenarPeliculas();
         llenarClientes();
     }
 
@@ -121,8 +121,84 @@ public class Sistema {
     }
 
     public void prestarPelicula(){
+        int idCliente;
+        int idPelicula;
+        int diasPrestamo;
+        int indicePelicula;
+        System.out.println("-----------------------------------------------");
         System.out.println("Prestamo de peliculas");
+        System.out.println("Ingrese el id del cliente");
+        idCliente = scanner.nextInt();
+        if(!validarIdRepetidoCliente(idCliente)){
+            System.out.println("Cliente incexistente, Ingrese el cliente en el munu anterior opcion 6");
+        } else if (!validarDisponibilidadCliente(idCliente)) {
+            System.out.println("El cliente no puede prestar mas de 1 pelicula");
+            System.out.println("Devuelva la pelicula en el menu anterior opcion 2");
+        } else {
+            Cliente auxCliente = buscarClientePorId(idCliente);
+            mostrarPeliculaDisponibles();
+            System.out.println("Cliente: " + auxCliente.getNombre());
+            System.out.println("Ingrese el numero de pelicula que desea rentar");
+            indicePelicula = scanner.nextInt();
+            System.out.println("Ingrese cuantos dias va alquilar la pelicula: " + peliculas[indicePelicula-1].getNombre());
+            diasPrestamo = scanner.nextInt();
+            peliculas[indicePelicula - 1].cambiarEstado();
+            auxCliente.cambiarEstado();
+            System.out.println(auxCliente.getNombre() + " Ha alquilado la pelicula " + peliculas[indicePelicula - 1].getNombre() +
+                                " , ID: " + peliculas[indicePelicula - 1].getId());
+            System.out.println("por, "+ diasPrestamo + " dias, Con Exito");
+
+            Prestamo auxPrestamo = new Prestamo(peliculas[indicePelicula-1].getId(), idCliente, diasPrestamo);
+            agregarPrestamo(auxPrestamo);
+        }
+
     }
+
+    public boolean validarDisponibilidadCliente(int idCliente){
+        for (int i = 0;i < clientes.length ; i++ ) {
+            if (clientes[i].getId()==idCliente) {
+                return clientes[i].getTienePrestado();
+            }
+        }
+        return false;
+    }
+
+    public Cliente buscarClientePorId(int idCliente){
+        for (int i = 0;i < clientes.length ; i++ ) {
+            if (clientes[i].getId()==idCliente) {
+                return clientes[i];
+            }
+        }
+        return null;
+    }
+
+    public void mostrarPeliculaDisponibles(){
+        if (peliculas.length==0) {
+            System.out.println("No hay peliculas que mostrar");
+        } else {
+            System.out.println("-----------------------------------------------");
+            System.out.println("Las peliculas disponibles en Memorabilia son:");
+            System.out.println("ID--Nombre--Anio--Categoria--Disponibilidad");
+            System.out.println("-----------------------------------------------");
+            System.out.println(" ");
+            for (int i = 0;i<peliculas.length ;i++ ) {
+                if (peliculas[i].getDisponible()) {
+                    System.out.println( (i+1) + ". " + peliculas[i].mostrarDatos());               
+                }
+            }
+            System.out.println("-----------------------------------------------");
+        }
+    }
+
+    public void agregarPrestamo (Prestamo prestamo){
+        Prestamo aux [] = new Prestamo[prestamos.length + 1];
+        for (int i = 0; i < prestamos.length ; i++ ) {
+            aux[i] = prestamos[i];
+        }
+        aux[prestamos.length] = prestamo;
+        prestamos = aux;
+    }
+
     
     public void devolverPelicula(){
         System.out.println("Devolucion de pelicula");
@@ -308,6 +384,24 @@ public class Sistema {
         
     }
 
+    public void mostrarPrestamos(){
+        if (prestamos.length == 0) {
+            System.out.println("No hay prestamos que mostrar");
+            
+        }else {
+            System.out.println("Listado de Prestamos");
+            System.out.println("-----------------------------------------------");
+            System.out.println("Los Prestamos de Memorabilia son:");
+            System.out.println("IDPeli--IDCliente--Dias");
+            System.out.println("-----------------------------------------------");
+            System.out.println(" ");
+            for (int i = 0; i < prestamos.length ; i++ ) {
+                System.out.println( ( i + 1 ) + ". " + prestamos[i].mostrarDatos());
+            }
+        }
+        
+    }
+
     public void crarReporte1(){
         System.out.println("Peliculas por categoria");
     }
@@ -364,7 +458,7 @@ public class Sistema {
 
     public void llenarClientes(){
         clientes = new Cliente[30];
-        clientes[0] = new Cliente("Mateo",44,3080299,true);
+        clientes[0] = new Cliente("Mateo",44,3080299,false);
         clientes[1] = new Cliente("Adriana",93,4582106,true);
         clientes[2] = new Cliente("Carolina",89,7313802,true);
         clientes[3] = new Cliente("Alejandro",92,7226760,true);
