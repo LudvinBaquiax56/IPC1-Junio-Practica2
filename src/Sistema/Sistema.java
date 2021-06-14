@@ -201,7 +201,70 @@ public class Sistema {
 
     
     public void devolverPelicula(){
+        int indiceCliente;
+        int idPelicula;
+        int indicePelicula;
+        System.out.println("-----------------------------------------------");
         System.out.println("Devolucion de pelicula");
+        if (validarExistenciaDePrestamosEnCurso()) {
+             mostrarClientesConLibros();
+            System.out.println("-----------------------------------------------");
+            System.out.println("Ingrese el indice del cliente que devolvera la pelicula " + "");
+            indiceCliente = scanner.nextInt();
+            idPelicula = buscarIDPeliculaPrestada(clientes[indiceCliente -1 ].getId());
+            indicePelicula = buscarIndicePelicula(idPelicula);
+            clientes[indiceCliente -1].cambiarEstado();
+            peliculas[indicePelicula].cambiarEstado();
+        } else {
+            System.out.println("No existen prestamos en curso");
+        }
+       
+    }
+    public boolean validarExistenciaDePrestamosEnCurso(){
+        for (int i = 0; i < clientes.length ; i++) {
+            if (!clientes[i].getTienePrestado()) {
+                return true;   
+            }
+        }
+        return false;
+    }
+
+    public int buscarIDPeliculaPrestada(int idCliente){
+        for (int i = prestamos.length - 1; i >= 0 ; i-- ) {
+            if (prestamos[i].getIdCliente()==idCliente) {
+                return prestamos[i].getIdPelicula();
+            }
+        }
+        return 0;
+    }
+    public int buscarIndicePelicula(int idPelicula){
+        for (int i = 0; i < peliculas.length ; i++ ) {
+            if (idPelicula == peliculas[i].getId()) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public void mostrarClientesConLibros(){
+        if (clientes.length == 0) {
+            System.out.println("No hay clientes que mostrar");
+            
+        }else {
+            System.out.println("Listado de Clientes");
+            System.out.println("-----------------------------------------------");
+            System.out.println("Las Clientes pendiente de devolucion son:");
+            System.out.println("Nombre--ID--Telefono--Disponivilidad Para prestar");
+            System.out.println("-----------------------------------------------");
+            System.out.println(" ");
+            for (int i = 0; i < clientes.length ; i++ ) {
+                if (!clientes[i].getTienePrestado()) {
+                    System.out.println( ( i + 1 ) + ". " + clientes[i].mostrarDatos());
+                }
+            }
+
+        }
+        
     }
 
     public void mostrarPelicula(){
@@ -458,7 +521,7 @@ public class Sistema {
 
     public void llenarClientes(){
         clientes = new Cliente[30];
-        clientes[0] = new Cliente("Mateo",44,3080299,false);
+        clientes[0] = new Cliente("Mateo",44,3080299,true);
         clientes[1] = new Cliente("Adriana",93,4582106,true);
         clientes[2] = new Cliente("Carolina",89,7313802,true);
         clientes[3] = new Cliente("Alejandro",92,7226760,true);
