@@ -20,9 +20,16 @@ public class Sistema {
         clientes = new Cliente[0];
         peliculas = new Pelicula[0];
         prestamos = new Prestamo[0];
+        System.out.println("Desea llenar el sistema con valores por defecto, esto aun le permitira meter mas datos sin problemas");
+        System.out.println("1. Si");
+        System.out.println("2. No"); 
+        int opcion = scanner.nextInt();
+        if (opcion == 1) {
+            llenarPeliculas();
+            llenarClientes();
+            llenarPrestamos();
+        }
         llenarCategorias();
-        llenarPeliculas();
-        llenarClientes();
     }
 
     public void mostrarMenu(){
@@ -467,10 +474,11 @@ public class Sistema {
     }
 
     public void crarReporte2(){
-        System.out.println("-----------------------------------------------");
         System.out.println("Peliculas de categoria en especifico");
         String categoria = seleccionarCategoriaPelicula();
         int contador = 1;
+        System.out.println("-----------------------------------------------");
+        System.out.println("Las peliculas de " + categoria);
         System.out.println("ID--Nombre--Anio--Categoria--Disponibilidad");
         for (int i = 0; i < peliculas.length ; i++ ) {
             if (categoria.equalsIgnoreCase(peliculas[i].getCategoria())) {
@@ -478,6 +486,7 @@ public class Sistema {
                 contador++;
             }
         }
+        System.out.println("-----------------------------------------------");
     }
 
     public void crarReporte3(){
@@ -503,6 +512,7 @@ public class Sistema {
     }
 
     public void crarReporte4(){
+        System.out.println("-----------------------------------------------");
         if (prestamos.length == 0) {
             System.out.println("No hay prestamos, ninguna pelicula ha sido prestada");
         } else {
@@ -512,8 +522,7 @@ public class Sistema {
             System.out.println(peliculas[indicePeliculaMasPrestada].getNombre() + ", con " 
                 + contador[indicePeliculaMasPrestada] + " veces prestada");     
         }
-        
-
+        System.out.println("-----------------------------------------------");
     }
 
     public int buscarNumeroMayor(int arreglo[]){
@@ -529,6 +538,7 @@ public class Sistema {
     }
 
     public void crarReporte5(){
+        System.out.println("-----------------------------------------------");
         if (prestamos.length == 0) {
             System.out.println("No hay prestamos, ninguna pelicula ha sido prestada");
         } else {
@@ -542,12 +552,13 @@ public class Sistema {
                     }
                 }
             } else {
-            int indicePeliculaMasPrestada = buscarNumeroMenor(contador);
+            int indicePeliculaMenosPrestada = buscarNumeroMenor(contador);
             System.out.println("Pelicula menos prestada es: ");
-            System.out.println(peliculas[indicePeliculaMasPrestada].getNombre() + ", con " 
-                + contador[indicePeliculaMasPrestada] + " veces prestada");
+            System.out.println(peliculas[indicePeliculaMenosPrestada].getNombre() + ", con " 
+                + contador[indicePeliculaMenosPrestada] + " veces prestada");
             }
         }
+        System.out.println("-----------------------------------------------");
     }
 
     public boolean buscarCeros(){
@@ -640,6 +651,61 @@ public class Sistema {
         clientes[27] = new Cliente("Rocio",35,9305623,true);
         clientes[28] = new Cliente("July",42,2189894,true);
         clientes[29] = new Cliente("Oliver",15,67458756,true);
+    }
+
+    public void llenarPrestamos(){
+        prestamos = new Prestamo[50];
+        prestamos[0] = new Prestamo(7018,92,5);
+        prestamos[1] = new Prestamo(5439,59,3);
+        prestamos[2] = new Prestamo(3998,82,8);
+        prestamos[3] = new Prestamo(1909,94,8);
+        prestamos[4] = new Prestamo(1840,90,4);
+        prestamos[5] = new Prestamo(7279,34,6);
+        prestamos[6] = new Prestamo(5361,77,2);
+        prestamos[7] = new Prestamo(6671,39,4);
+        prestamos[8] = new Prestamo(4493,17,3);
+        prestamos[9] = new Prestamo(1984,38,7);
+        prestamos[10] = new Prestamo(8950,93,9);
+        prestamos[11] = new Prestamo(1234,45,5);
+        prestamos[12] = new Prestamo(5356,71,3);
+        prestamos[13] = new Prestamo(2369,68,9);
+        prestamos[14] = new Prestamo(1048,81,6);
+        prestamos[15] = new Prestamo(6670,57,1);
+        prestamos[16] = new Prestamo(2648,73,1);
+        prestamos[17] = new Prestamo(6218,70,4);
+        prestamos[18] = new Prestamo(5739,89,5);
+        prestamos[19] = new Prestamo(9731,22,8);
+        prestamos[20] = new Prestamo(1398,14,9);
+        prestamos[21] = new Prestamo(7279,73,8);
+        prestamos[22] = new Prestamo(3764,43,2);
+        prestamos[23] = new Prestamo(1364,26,9);
+        prestamos[24] = new Prestamo(2985,15,8);
+        prestamos[25] = new Prestamo(8669,35,4);
+        prestamos[26] = new Prestamo(8651,75,9);
+        prestamos[27] = new Prestamo(5363,42,2);
+        prestamos[28] = new Prestamo(7163,11,5);
+        prestamos[29] = new Prestamo(5156,61,8);
+        prestamos[30] = new Prestamo(7018,90,6);
+        prestamos[31] = new Prestamo(5439,57,2);
+        prestamos[32] = new Prestamo(3998,75,7);
+        prestamos[33] = new Prestamo(1909,26,9);
+        prestamos[34] = new Prestamo(1840,94,1);
+        prestamos[35] = new Prestamo(7279,73,4);
+        prestamos[36] = new Prestamo(5361,35,6);
+        prestamos[37] = new Prestamo(6671,82,9);
+        prestamos[38] = new Prestamo(4493,59,2);
+        prestamos[39] = new Prestamo(1984,43,4);
+        prestamos[40] = new Prestamo(8950,70,6);
+        prestamos[41] = new Prestamo(1234,89,5);
+        prestamos[42] = new Prestamo(1909,38,7);
+        prestamos[43] = new Prestamo(1840,70,9);
+        prestamos[44] = new Prestamo(7279,61,1);
+        prestamos[45] = new Prestamo(5361,43,2);
+        prestamos[46] = new Prestamo(1840,70,5);
+        prestamos[47] = new Prestamo(7279,45,7);
+        prestamos[48] = new Prestamo(7279,14,3);
+        prestamos[49] = new Prestamo(7279,44,5);
+        //prestamos[49] = new Prestamo(9874,44,5);
     }
 
     public void llenarCategorias(){

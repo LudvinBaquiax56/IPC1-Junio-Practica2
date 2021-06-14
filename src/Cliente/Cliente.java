@@ -52,7 +52,7 @@ public class Cliente {
 
 	public String disponibilidad(){
 		if (tienePrestado) {
-			return "Sin prestamos";
+			return "Sin prestamo";
 		} else {
 			return "Con prestamo activo";
 		}
