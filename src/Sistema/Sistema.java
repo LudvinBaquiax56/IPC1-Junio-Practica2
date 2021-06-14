@@ -11,13 +11,16 @@ public class Sistema {
     private Cliente[] clientes;
     private Pelicula[] peliculas;
     private Prestamo[] prestamos;
+    private String[] categoriaPelicula;
+    private int contador [];
     Scanner scanner = new Scanner(System.in);
 
 
     public Sistema(){
         clientes = new Cliente[0];
         peliculas = new Pelicula[0];
-        prestamos = new Prestamo[0];      
+        prestamos = new Prestamo[0];
+        llenarCategorias();
         llenarPeliculas();
         llenarClientes();
     }
@@ -324,38 +327,18 @@ public class Sistema {
         String categoria = "";
         do {
             System.out.println("Seleccione la categoria de la pelicula");
-            System.out.println("1. Drama");
-            System.out.println("2. Infantil");
-            System.out.println("3. Accion");
-            System.out.println("4. Comedia");
-            System.out.println("5. Romance");
-        opcion = scanner.nextInt();
-            switch (opcion){
-                case 1:
-                    categoria = "Drama";
-                    salir = false;
-                    break;
-                case 2:
-                    categoria = "Infantil";
-                    salir = false;
-                    break;
-                case 3:
-                    categoria = "Accion";
-                    salir = false;
-                    break;
-                case 4:
-                    categoria = "Comedia";
-                    salir = false;
-                    break;
-                case 5:
-                    categoria = "Romance";
-                    salir = false;
-                    break;
-                default:
-                    System.out.println("Error opcion incorrecta");
-                    break;
+            for (int i = 0; i < categoriaPelicula.length ; i++ ) {
+                System.out.println((i+1) + ". " + categoriaPelicula[i]);
             }
 
+            opcion = scanner.nextInt();
+
+            if (opcion >= 1 && opcion <= categoriaPelicula.length) {
+                categoria = categoriaPelicula[opcion-1];
+                salir = false;
+            } else {
+                System.out.println("Opcion incorrecta");
+            }
         } while (salir);
         return categoria;
     }
@@ -467,22 +450,128 @@ public class Sistema {
 
     public void crarReporte1(){
         System.out.println("Peliculas por categoria");
+        for (int i = 0; i < categoriaPelicula.length ; i++ ) {
+            System.out.println("Hay " + peliculasPorCategoria(categoriaPelicula[i]) + " peliculas de " + categoriaPelicula[i]);
+
+        }
+    }
+
+    public int peliculasPorCategoria(String categoria){
+        int contador = 0;
+        for (int i = 0; i < peliculas.length ; i++ ) {
+            if (peliculas[i].getCategoria().equalsIgnoreCase(categoria)) {
+                contador++;
+            }
+        }
+        return contador;
     }
 
     public void crarReporte2(){
+        System.out.println("-----------------------------------------------");
         System.out.println("Peliculas de categoria en especifico");
+        String categoria = seleccionarCategoriaPelicula();
+        int contador = 1;
+        System.out.println("ID--Nombre--Anio--Categoria--Disponibilidad");
+        for (int i = 0; i < peliculas.length ; i++ ) {
+            if (categoria.equalsIgnoreCase(peliculas[i].getCategoria())) {
+                System.out.println(contador + ". " + peliculas[i].mostrarDatos());
+                contador++;
+            }
+        }
     }
 
     public void crarReporte3(){
-        System.out.println("Peliculas y veces prestada");
+        System.out.println("-----------------------------------------------");
+        if (prestamos.length==0) {
+            System.out.println("No hay prestamos, ninguna pelicula ha sido prestada");
+        } else {
+            System.out.println("Peliculas y veces prestada");
+            contarPrestamosDePeliculas();
+            System.out.println("Nombre Pelicula--No. veces prestada");
+            for (int i = 0; i < peliculas.length ; i++) {
+                System.out.println(( i + 1 )+ ". " + peliculas[i].getNombre() + "--" + contador[i]);
+            }
+        }
+        System.out.println("-----------------------------------------------");
+    }
+
+    public void contarPrestamosDePeliculas(){
+        contador = new int [peliculas.length];
+        for (int i = 0; i < prestamos.length ; i++ ) {
+            contador[buscarIndicePelicula(prestamos[i].getIdPelicula())]++;
+        }
     }
 
     public void crarReporte4(){
-        System.out.println("Pelicula mas prestada");
+        if (prestamos.length == 0) {
+            System.out.println("No hay prestamos, ninguna pelicula ha sido prestada");
+        } else {
+            contarPrestamosDePeliculas();
+            int indicePeliculaMasPrestada = buscarNumeroMayor(contador);
+            System.out.println("Pelicula mas prestada es: ");
+            System.out.println(peliculas[indicePeliculaMasPrestada].getNombre() + ", con " 
+                + contador[indicePeliculaMasPrestada] + " veces prestada");     
+        }
+        
+
+    }
+
+    public int buscarNumeroMayor(int arreglo[]){
+        int indice = 0;
+        int numeroMayor = arreglo[0];
+        for (int i = 0; i < arreglo.length ; i++) {
+            if (numeroMayor < arreglo[i]) {
+                numeroMayor = arreglo[i];
+                indice = i;
+            }
+        }
+        return indice;
     }
 
     public void crarReporte5(){
-        System.out.println("Pelicula menos prestada");
+        if (prestamos.length == 0) {
+            System.out.println("No hay prestamos, ninguna pelicula ha sido prestada");
+        } else {
+            contarPrestamosDePeliculas();
+            if(buscarCeros()) {
+                System.out.println("Las peliculas menos prestadas son: ");
+                for (int i = 0; i < contador.length ; i++ ) {
+                    if (contador[i] == 0) {
+                        System.out.println(peliculas[i].getNombre() + ", con " 
+                    + contador[i] + " veces prestada");
+                    }
+                }
+            } else {
+            int indicePeliculaMasPrestada = buscarNumeroMenor(contador);
+            System.out.println("Pelicula menos prestada es: ");
+            System.out.println(peliculas[indicePeliculaMasPrestada].getNombre() + ", con " 
+                + contador[indicePeliculaMasPrestada] + " veces prestada");
+            }
+        }
+    }
+
+    public boolean buscarCeros(){
+        int count = 0;
+        for (int i = 0; i < contador.length ;i++ ) {
+            if (contador[i]==0) {
+                count++;
+            }
+            if (count >= 2) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public int buscarNumeroMenor(int arreglo[]){
+        int indice = 0;
+        int numeroMenor = arreglo[0];
+        for (int i = 0; i < arreglo.length ; i++) {
+            if (numeroMenor > arreglo[i]) {
+                numeroMenor = arreglo[i];
+                indice = i;
+            }
+        }
+        return indice;
     }
 
     public void llenarPeliculas(){
@@ -551,6 +640,15 @@ public class Sistema {
         clientes[27] = new Cliente("Rocio",35,9305623,true);
         clientes[28] = new Cliente("July",42,2189894,true);
         clientes[29] = new Cliente("Oliver",15,67458756,true);
+    }
+
+    public void llenarCategorias(){
+        categoriaPelicula = new String[5];
+        categoriaPelicula[0] = "Drama";
+        categoriaPelicula[1] = "Infantil";
+        categoriaPelicula[2] = "Accion";
+        categoriaPelicula[3] = "Comedia";
+        categoriaPelicula[4] = "Romance";
     }
 
 }

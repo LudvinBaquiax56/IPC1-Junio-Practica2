@@ -60,7 +60,15 @@ public class Pelicula {
 		this.disponible = (!disponible);
 	}
 
+	public String disponibilidad(){
+		if (disponible) {
+			return "Disponible";
+		} else {
+			return "No Disponible";
+		}
+	}
+
 	public String mostrarDatos(){
-		return id + "--" + nombre + "--" + anio + "--" + categoria + "--" + disponible;
+		return id + "--" + nombre + "--" + anio + "--" + categoria + "--" + disponibilidad();
 	}
 }

@@ -50,7 +50,14 @@ public class Cliente {
 		this.tienePrestado = (!tienePrestado);
 	}
 
+	public String disponibilidad(){
+		if (tienePrestado) {
+			return "Sin prestamos";
+		} else {
+			return "Con prestamo activo";
+		}
+	}
 	public String mostrarDatos(){
-		return nombre + "--" + id + "--" + telefono + "--" + tienePrestado;
+		return nombre + "--" + id + "--" + telefono + "--" + disponibilidad();
 	}
 }
