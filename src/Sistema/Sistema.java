@@ -32,6 +32,9 @@ public class Sistema {
         llenarCategorias();
     }
 
+    /**
+     * Muestra el menu principal
+     */
     public void mostrarMenu(){
         System.out.println("");
         boolean salir = true;
@@ -88,6 +91,9 @@ public class Sistema {
         
     }
 
+    /**
+     * Muestra el menu de reportes
+     */
     public void mostrarMenuReportes(){
         boolean salir = true;
         int opcion = 0;
@@ -130,6 +136,11 @@ public class Sistema {
         } while (salir);
     }
 
+    /**
+     * Permite el prestamo de peliculas
+     * valida si existe el cliente
+     * valida si el cliente no tiene prestamos activos
+     */
     public void prestarPelicula(){
         int idCliente;
         int idPelicula;
@@ -164,6 +175,9 @@ public class Sistema {
 
     }
 
+    /**
+     * Valida si el cliente tiene un prestamo en curso
+     */
     public boolean validarDisponibilidadCliente(int idCliente){
         for (int i = 0;i < clientes.length ; i++ ) {
             if (clientes[i].getId()==idCliente) {
@@ -173,6 +187,9 @@ public class Sistema {
         return false;
     }
 
+    /**
+     * Busca un cliente por medio de id
+     */
     public Cliente buscarClientePorId(int idCliente){
         for (int i = 0;i < clientes.length ; i++ ) {
             if (clientes[i].getId()==idCliente) {
@@ -182,6 +199,9 @@ public class Sistema {
         return null;
     }
 
+    /**
+     * Muestra las peliculas disponibles
+     */
     public void mostrarPeliculaDisponibles(){
         if (peliculas.length==0) {
             System.out.println("No hay peliculas que mostrar");
@@ -200,6 +220,9 @@ public class Sistema {
         }
     }
 
+    /**
+     * Agrega un presta al arreglo de prestamos, haciendo lo estatico dinamico
+     */
     public void agregarPrestamo (Prestamo prestamo){
         Prestamo aux [] = new Prestamo[prestamos.length + 1];
         for (int i = 0; i < prestamos.length ; i++ ) {
@@ -209,7 +232,9 @@ public class Sistema {
         prestamos = aux;
     }
 
-    
+    /**
+     * Permite la devolucion de peliculas, mostrando los clientes con prestamos activos
+     */
     public void devolverPelicula(){
         int indiceCliente;
         int idPelicula;
@@ -230,6 +255,10 @@ public class Sistema {
         }
        
     }
+
+    /**
+     * Valida si existe prestamos en curso, mediante los clientes
+     */
     public boolean validarExistenciaDePrestamosEnCurso(){
         for (int i = 0; i < clientes.length ; i++) {
             if (!clientes[i].getTienePrestado()) {
@@ -239,6 +268,9 @@ public class Sistema {
         return false;
     }
 
+    /**
+     * Busca el id de la pelicula prestada por un cliente, reecibe como parametro el id del cliente
+     */
     public int buscarIDPeliculaPrestada(int idCliente){
         for (int i = prestamos.length - 1; i >= 0 ; i-- ) {
             if (prestamos[i].getIdCliente()==idCliente) {
@@ -247,6 +279,10 @@ public class Sistema {
         }
         return 0;
     }
+
+    /**
+     * Busca el indice de una pelicula por su id
+     */
     public int buscarIndicePelicula(int idPelicula){
         for (int i = 0; i < peliculas.length ; i++ ) {
             if (idPelicula == peliculas[i].getId()) {
@@ -256,6 +292,9 @@ public class Sistema {
         return -1;
     }
 
+    /**
+     * Muestra los clientes con prestamos activos
+     */
     public void mostrarClientesConLibros(){
         if (clientes.length == 0) {
             System.out.println("No hay clientes que mostrar");
@@ -277,6 +316,9 @@ public class Sistema {
         
     }
 
+    /**
+     * Muestra todas las peliculas
+     */
     public void mostrarPelicula(){
         if (peliculas.length==0) {
             System.out.println("No hay peliculas que mostrar");
@@ -292,6 +334,9 @@ public class Sistema {
         }
     }
 
+    /**
+     * Ingresa una nueva pelicula
+     */
     public void ingresarPelicula(){
         int idPelicula = -1;
         String nombrePelicula;
@@ -319,6 +364,9 @@ public class Sistema {
         System.out.println("Pelicula Agregada con exito");
     }
 
+    /**
+     * Valida id de una pelicula si esta ya existe
+     */
     public boolean validarIdRepetidoPeliculas(int idPelicula){
         for (int i = 0;i < peliculas.length ; i++ ) {
             if (peliculas[i].getId()==idPelicula) {
@@ -328,6 +376,9 @@ public class Sistema {
         return false;
     }
 
+    /**
+     * Muestra las categorias de peliculas y retorna la categoria escogida
+     */
     public String seleccionarCategoriaPelicula(){
         boolean salir = true;
         int opcion = 0;
@@ -350,6 +401,9 @@ public class Sistema {
         return categoria;
     }
 
+    /**
+     * Agrega una pelicula al arreglo peliculas, haciendo lo estatico dinamico
+     */
     public void agregarPelicula (Pelicula pelicula){
         Pelicula aux [] = new Pelicula[peliculas.length + 1];
         for (int i = 0; i < peliculas.length ; i++ ) {
@@ -359,6 +413,9 @@ public class Sistema {
         peliculas = aux;
     }
 
+    /**
+     * Ordena las peliculas con el metodo Burbuja
+     */
     public void ordenarPeliculas(){
         if (peliculas.length == 0 || peliculas.length == 1) {
             System.out.println("No hay suficientes peliculas para ordenar");
@@ -379,6 +436,9 @@ public class Sistema {
         
     }
 
+    /**
+     * Ingresa un nuevo cliente
+     */
     public void ingresarCliente(){
         String nombreCliente;
         int idCliente;
@@ -401,6 +461,9 @@ public class Sistema {
         agregarCliente ( new Cliente(nombreCliente,idCliente,telefonoCliente,true));
     }
 
+    /**
+     * Valida si un Id ya existe
+     */
     public boolean validarIdRepetidoCliente(int idCliente){
         for (int i = 0;i < clientes.length ; i++ ) {
             if (clientes[i].getId()==idCliente) {
@@ -410,6 +473,9 @@ public class Sistema {
         return false;
     }
 
+    /**
+     * Agrega un cliente al arreglo de clientes haciendo lo estatico dinamico
+     */
     public void agregarCliente (Cliente cliente){
         Cliente aux [] = new Cliente[clientes.length + 1];
         for (int i = 0; i < clientes.length ; i++ ) {
@@ -419,6 +485,9 @@ public class Sistema {
         clientes = aux;
     }
 
+    /**
+     * Muestra los clientes del sistema
+     */
     public void mostrarClientes(){
         if (clientes.length == 0) {
             System.out.println("No hay clientes que mostrar");
@@ -437,6 +506,9 @@ public class Sistema {
         
     }
 
+    /**
+     * Muestra los prestamos realizados
+     */
     public void mostrarPrestamos(){
         if (prestamos.length == 0) {
             System.out.println("No hay prestamos que mostrar");
@@ -455,6 +527,9 @@ public class Sistema {
         
     }
 
+    /**
+     * Crea el reporte 1 mostrando cada categoria y el numero de peliculas que tiene esta.
+     */
     public void crarReporte1(){
         System.out.println("Peliculas por categoria");
         for (int i = 0; i < categoriaPelicula.length ; i++ ) {
@@ -463,6 +538,10 @@ public class Sistema {
         }
     }
 
+    /**
+     * Mustra la cantidad de peliculas de una categoria en especifico
+     * recibe como parametro un String con la categoria
+     */
     public int peliculasPorCategoria(String categoria){
         int contador = 0;
         for (int i = 0; i < peliculas.length ; i++ ) {
@@ -473,6 +552,9 @@ public class Sistema {
         return contador;
     }
 
+    /**
+     * Crea el reporte 2 mostrando las peliculas de una categoria en especifico
+     */
     public void crarReporte2(){
         System.out.println("Peliculas de categoria en especifico");
         String categoria = seleccionarCategoriaPelicula();
@@ -489,6 +571,11 @@ public class Sistema {
         System.out.println("-----------------------------------------------");
     }
 
+    /**
+     * Crea el reporte 3 mostrando la pelicula y las veces que hallan sido alquiladas
+     * haciendo uso de un arreglo contador y la funcion contarPrestamosDePeliculas()
+     * Si no se ha realizado un prestamo el reporte no se crea
+     */
     public void crarReporte3(){
         System.out.println("-----------------------------------------------");
         if (prestamos.length==0) {
@@ -504,6 +591,11 @@ public class Sistema {
         System.out.println("-----------------------------------------------");
     }
 
+    /**
+     * Hace un conteo de cuantas veces ha sido prestada una pelicula
+     * haciendo uso de la funcion buscarIndicePelicula() asi asignar el mismo indice 
+     * a su respectivo contador
+     */
     public void contarPrestamosDePeliculas(){
         contador = new int [peliculas.length];
         for (int i = 0; i < prestamos.length ; i++ ) {
@@ -511,6 +603,9 @@ public class Sistema {
         }
     }
 
+    /**
+     * Crea el reporte 4, mostrando la pelicula mas prestada
+     */
     public void crarReporte4(){
         System.out.println("-----------------------------------------------");
         if (prestamos.length == 0) {
@@ -525,6 +620,9 @@ public class Sistema {
         System.out.println("-----------------------------------------------");
     }
 
+    /**
+     * Busca el indice del numero mayor que hay en un arreglo
+     */
     public int buscarNumeroMayor(int arreglo[]){
         int indice = 0;
         int numeroMayor = arreglo[0];
@@ -537,6 +635,10 @@ public class Sistema {
         return indice;
     }
 
+    /**
+     * Crea el reporte numero 5, mostrando la pelicula menos prestada, 
+     * en caso de existir mas 1 pelicula que nunca halla sido prestada las muestra 
+     */
     public void crarReporte5(){
         System.out.println("-----------------------------------------------");
         if (prestamos.length == 0) {
@@ -561,6 +663,10 @@ public class Sistema {
         System.out.println("-----------------------------------------------");
     }
 
+    /**
+     * Busca si existe mas de un cero en un arreglo (Contador), 
+     * retorna verdaadero si existen mas de dos ceros y falso en caso contrario
+     */
     public boolean buscarCeros(){
         int count = 0;
         for (int i = 0; i < contador.length ;i++ ) {
@@ -573,6 +679,10 @@ public class Sistema {
         }
         return false;
     }
+
+    /**
+     * Retorna el indice del numero mas pequenio que existe en un arreglo
+     */
     public int buscarNumeroMenor(int arreglo[]){
         int indice = 0;
         int numeroMenor = arreglo[0];
@@ -585,6 +695,9 @@ public class Sistema {
         return indice;
     }
 
+    /**
+     * Ingresa peliculas para la verificacion del sistema
+     */
     public void llenarPeliculas(){
         peliculas = new Pelicula[30];
         peliculas[0] = new Pelicula(7018,"La red social", 2010, "Drama", true);
@@ -619,6 +732,9 @@ public class Sistema {
         peliculas[29] = new Pelicula(5156,"La familia Addams",2019,"Infantil", true);
     }
 
+    /**
+     * Ingresa clientes para la verificacion del sistema
+     */
     public void llenarClientes(){
         clientes = new Cliente[30];
         clientes[0] = new Cliente("Mateo",44,3080299,true);
@@ -653,6 +769,9 @@ public class Sistema {
         clientes[29] = new Cliente("Oliver",15,67458756,true);
     }
 
+    /**
+     * Ingresa prestamos predefinidos para la verificacion del sistema
+     */
     public void llenarPrestamos(){
         prestamos = new Prestamo[50];
         prestamos[0] = new Prestamo(7018,92,5);
@@ -708,6 +827,9 @@ public class Sistema {
         //prestamos[49] = new Prestamo(9874,44,5);
     }
 
+    /**
+     * Llena las categorias con las que dispondra el sistema
+     */
     public void llenarCategorias(){
         categoriaPelicula = new String[5];
         categoriaPelicula[0] = "Drama";
